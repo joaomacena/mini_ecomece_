@@ -3,19 +3,18 @@ from src.common.abstracts.repository import T, AbstractRepository
 
 
 class SqlAlchemyRepository(AbstractRepository[T]):
-  def __init__(self, session):
-      self.session = session
-  
-  def add(self, model : T):
-    self.session.add(model)
-    self.session.commit()
-    self.session.refresh(model)
+    def __init__(self, session):
+        self.session = session
 
-    return model
+    def add(self, model: T):
+        self.session.add(model)
+        self.session.commit()
+        self.session.refresh(model)
 
-  
-  def get(self, **kwargs) -> Optional[T]:
-    pass
-  
-  def all(self) -> List[T]:
-    pass
+        return model
+
+    def get(self, **kwargs) -> Optional[T]:
+        pass
+
+    def all(self) -> List[T]:
+        pass
