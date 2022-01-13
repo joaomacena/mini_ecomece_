@@ -14,6 +14,7 @@ from src.domain.address.model import Address
 
 metadata = Base.metadata
 
+
 table_supplier = Table(
     'suppliers',
     metadata,
@@ -83,7 +84,7 @@ table_customer = Table(
     Column('phone_number', String(15)),
     Column('genre', String(45)),
     Column('document_id', String(45), unique=True),
-    Column('birth_Date', Date)   
+    Column('birth_date', Date)   
 )
 
 
@@ -117,10 +118,10 @@ def start_mapper():
         'discounts': relationship(product_discount_mapper)
     })
     
-    custumer_mapper = mapper(Customer,table_customer)
+    address = mapper(Address,table_address)
+    
+    mapper(Customer,table_customer, properties={
+        'list_address': relationship(address)})
 
-    mapper(Address,table_address, properties={
-        'customer': relationship(custumer_mapper)
-    })
 
     mapper(Coupon, table_coupon)

@@ -8,3 +8,4 @@ class ProductDiscount:
         self.value = value
         self.payment_method = payment_method
         
+        

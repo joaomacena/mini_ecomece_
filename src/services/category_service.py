@@ -5,3 +5,4 @@ def create_category(name, uow: SqlAlchemyUnitOfWork):
   with uow:
     uow.category_repository.add(Category(name=name))
     uow.commit()
+    
