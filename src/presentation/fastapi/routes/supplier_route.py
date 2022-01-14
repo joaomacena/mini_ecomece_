@@ -10,8 +10,8 @@ router = APIRouter()
 @router.post('/', status_code=status.HTTP_201_CREATED)
 def create(schema: CreateSupplierSchema):
   uow = SqlAlchemyUnitOfWork()
-  dto = Supplier(**schema.dict())
+  #dto = Supplier(**schema.dict())
   
-  supplier = create_supplier(dto, uow=uow)
+  supplier = create_supplier(**schema.dict(), uow=uow)
 
   return supplier

@@ -10,8 +10,8 @@ router = APIRouter()
 @router.post('/', status_code=status.HTTP_201_CREATED)
 def create(schema: CreateCategorychema):
   uow = SqlAlchemyUnitOfWork()
-  dto = Category(**schema.dict())
   
-  category = create_category(dto, uow=uow)
+  
+  category = create_category(**schema.dict(), uow=uow)
 
   return category

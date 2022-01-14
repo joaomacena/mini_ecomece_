@@ -10,8 +10,8 @@ router = APIRouter()
 @router.post('/', status_code=status.HTTP_201_CREATED)
 def create(schema: CreateCouponSchema):
   uow = SqlAlchemyUnitOfWork()
-  dto = CouponDTO(**schema.dict())
+  #dto = CouponDTO(**schema.dict())
   
-  coupon = create_coupon(dto, uow=uow)
+  coupon = create_coupon(**schema.dict(), uow=uow)
 
   return coupon
