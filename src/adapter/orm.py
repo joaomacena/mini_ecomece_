@@ -1,7 +1,7 @@
 from sqlalchemy import Table
 from sqlalchemy.orm import mapper, relationship
 from sqlalchemy.sql.schema import Column, ForeignKey
-from sqlalchemy.sql.sqltypes import Boolean, Date, Float, Integer, String, DATETIME
+from sqlalchemy.sql.sqltypes import Boolean, Date, Float, Integer, String, DateTime
 from src.adapter.database import Base
 from src.domain.product.model import Product
 from src.domain.category.model import Category
@@ -49,7 +49,7 @@ table_coupon = Table(
     metadata,
     Column('id', Integer, primary_key=True, autoincrement=True),
     Column('code', String(50), unique=True),
-    Column('expire_at', DATETIME),
+    Column('expire_at', DateTime),
     Column('limit', Integer),
     Column('type', String(10)),
     Column('value', Float(10, 2))
@@ -101,6 +101,41 @@ table_address = Table(
     Column('primary', Boolean, default=True),
     Column('customer_id', ForeignKey('customers.id'))
 )
+
+table_order = Table(
+    'orders',
+    metadata,
+    Column('id', Integer, primary_key=True, autoincrement=True),
+    Column('number',String(10)),
+    Column('status',String(15)),
+    Column('customer_id', ForeignKey('customers.id')),
+    Column('created_at',DateTime),
+    Column('address_id', ForeignKey('addresses.id')),
+    Column('value', Float(10,2)),
+    Column('payment_form_id', ForeignKey('payment_methods.id')),
+    Column('total_discount', Float(10,2)),
+)
+
+table_order_status = Table(
+    'ordem_statuses',
+    metadata,
+    Column('id', Integer, primary_key=True, autoincrement=True),
+    Column('status',String(15)),
+    Column('created_at',DateTime),
+    Column('order_id', ForeignKey('orders.id')),
+)
+
+table_order_products = Table(
+    'order_products',
+    metadata,
+    Column('id', Integer, primary_key=True, autoincrement=True),
+    Column('order_id', ForeignKey('orders.id')),
+    Column('product_id', ForeignKey('products.id')),
+    Column('quantity',Integer)
+)
+
+    
+
 
 
 def start_mapper():
